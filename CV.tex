@@ -1,0 +1,571 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+% -*- coding: UTF-8; -*-
+% vim: set fenc=utf-8
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SIMPLE-RESUME-CV
+%% <https://github.com/zachscrivena/simple-resume-cv>
+%% This is free and unencumbered software released into the
+%% public domain; see <http://unlicense.org> for details.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% See "README.md" for instructions on compiling this document.
+
+\documentclass[letterpaper,MMMyyyy,nonstopmode]{simpleresumecv}
+
+
+\usepackage{wrapfig}
+
+
+% Class options:
+% a4paper, letterpaper, nonstopmode, draftmode
+% MMMyyyy, ddMMMyyyy, MMMMyyyy, ddMMMMyyyy, yyyyMMdd, yyyyMM, yyyy
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PREAMBLE.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\usepackage{graphicx}
+\usepackage{transparent}
+\usepackage{eso-pic}
+
+
+% CV Info (to be customized).
+\newcommand{\CVAuthor}{Marc Garrido Casas}
+\newcommand{\CVTitle}{Curriculum}
+\newcommand{\CVNote}{}
+\newcommand{\CVWebpage}{}
+
+% PDF settings and properties.
+\hypersetup{
+pdftitle={\CVTitle},
+pdfauthor={\CVAuthor},
+pdfsubject={\CVWebpage},
+pdfcreator={XeLaTeX},
+pdfproducer={},
+pdfkeywords={},
+unicode=true,
+bookmarks=true,
+bookmarksopen=true,
+pdfstartview=FitH,
+pdfpagelayout=OneColum
+pdfpagemode=UseOutln,
+hidelinks}
+
+% Shorthand.
+\newcommand{\Code}[1]{\mbox{\textbf{#1}}}
+\newcommand{\CodeCommand}[1]{\mbox{\textbf{\textbackslash{#1}}}}
+
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ACTUAL DOCUMENT.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\thispagestyle{empty}       %Quitar numero de pagina
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% FOTO CARETO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\AddToShipoutPicture*{
+%    \put(220,320){
+%        \parbox[b][\paperheight]{\paperwidth}{%
+%            \vfill
+%            \centering
+%            {\includegraphics[width=0.15\textwidth]{DSC_2799}}
+%           \vfill
+%       }
+%    }
+%}
+
+\Gap
+\Gap
+%%%%%%%%%%%%%%%
+% TITLE BLOCK %
+%%%%%%%%%%%%%%%
+%\vspace{-10cm}
+
+ \Title{\CVAuthor}
+\Gap
+\Gap
+\Gap
+\Gap
+\vspace{0.25cm}    
+%\begin{SCfigure}[0.4][h]
+%\includegraphics[width=0.2\textwidth]{DSC_2799}
+%\end{SCfigure}
+
+
+
+
+\begin{Body}
+
+\Gap
+\Gap
+\Gap
+%%%%%%%%%%%%%%%
+%% Dades personals %%
+%%%%%%%%%%%%%%%
+
+\Section
+{Personal Data}
+{Datos personales}
+{PDF:Education}
+
+\Entry
+
+\large{October 14th, 1995}
+%\large{14 de Octubre del 1995}
+
+{Cervelló 08758}
+
+{+34 618 133 038}
+
+{Garridocho@gmail.com}
+
+\href{https://www.linkedin.com/in/marcgarrido}{linkedin.com/in/marcgarrido}
+
+\href{https://www.github.com/Garriden}{github.com/Garriden}
+
+
+\Gap
+
+
+%\hfill
+
+%%%%%%%%%%%%%%%
+%% EDUCATION %%
+%%%%%%%%%%%%%%%
+
+\Section
+{Education}
+{Educación}
+{PDF:Education}
+
+\Entry
+
+{\textbf{Master's degree in Data science (UOC)}}
+%{\textbf{Master en ciencia de datos (UOC)}}
+\hfill
+\DatestampY{2020} --
+\DatestampY{2022}
+
+
+\Gap
+
+
+%{\textbf{Graduado universitario en Ingeniería Informática (UPC - FIB)}}
+{\textbf{Bachelor's degree in Informatics Engineering (UPC - FIB)}}
+\hfill
+\DatestampY{2013} --
+\DatestampY{2019}
+
+\tab Specialization: Computer Engineering.
+%\tab Especialización Ingeniería de computadores.
+
+
+\Gap
+
+%\hfill
+
+%%%%%%%%%%%%%%%
+%% Experencia %%
+%%%%%%%%%%%%%%%
+
+\Section
+{Professional experience}
+{Experiencia profesional}
+{PDF:Education}
+
+\Entry
+
+
+
+{\textbf{FICOSA Automotive}}
+\hfill
+\DatestampYM{2022}{02} --
+\DatestampY{Actual} 
+
+\tab Firmware engineer, (R+I+D). 
+%\tab Ingeniero de Firmware (R+I+D). 
+
+\tab New functionalities and bug-solving in C. 
+%\tab Añadir nuevas funcionalidades y solucionat bugs en lenguaje C. 
+
+\tab Messing with Can, Automotive tools, git and  client requirements...
+%\tab Protocolos Can/Bus, Herramientas Automotive, git y requerimientos de cliente...
+
+\Gap
+
+{\textbf{Derivco Sports, Betway}}
+\hfill
+\DatestampYM{2021}{07} --
+\DatestampYM{2022}{02}
+
+\tab Software engineer, backend, betting services. 
+%\tab Ingeniero de Software, backend, servicios de apuestas. 
+
+\tab Develop new Go code and refactoring old code in Elixir. 
+%\tab Realizar nuevo código en lenguaje Go, actualizar código viejo escrito en Elixir. 
+
+\tab Devops, Azure, Continous Integration pipelines, Unit testing. 
+%\tab Devops, Azure, Continous Integration Pipelines, Unit testing. 
+
+\tab International team. Agile/Scrum method, 2 week demos. 
+%\tab Equipo internacional, Agile/Scrum, demos cada dos semanas. 
+
+\Gap
+
+
+{\textbf{HP printing solutions}}
+\hfill
+\DatestampYM{2019}{09} --
+\DatestampYM{2021}{07}
+
+\tab Firmware engineer (R+I+D) for Large Format Printers. 
+%\tab Ingeniero de Firmware (R+I+D) para impresoras de largo formato. 
+
+\tab Debugging new funcionalities, fix old bugs, add Gtests. 
+%\tab Debugar y crear nuevas funcionalidades, arreglar bugs, añadir Gtests. 
+
+\tab Develop new C++ code for servo movements in real time. 
+%\tab Desenvolupar código C++ para el movimiento de servos en tiempo real. 
+
+\tab It was needed to increment x2 la the printing speed maintaining the quality.
+%\tab El proyecto consistía en mejorar x2 la velocidad de impresión manteniendo la calidad.
+
+\tab Improve x1.5 times, one printer motor, necessary to stack the pages with the new speed.
+%\tab Mejoré un x1.5 el tiempo de un servomotor dedicado al control de páginas. 
+
+\tab Upgrading x4 the life cycle of another motor, rethinking his movement mode.
+%\tab Aumenté x4 el tiempo de vida de un servomotor con un nuevo modo de movimiento.
+
+\tab I did the final master's thesis with them. I had to find the best PID values for a
+\tab \tab   specific motor depending of the data obtained from printers.
+%\tab Realicé el trabajo de fin de máster con ellos. Consistía en encontrar los valores PID
+%\tab \tab   ideales por un motor específico según los datos obtenidos de distintas impresoras.
+
+\tab Working in a big team, agile method, with hard deadlines. 
+%\tab Trabajé con un amplio equipo con métodos Agile. 
+
+\tab Sistemas embebidos, RTOS, SVN, cross-compile. 
+
+\Gap
+
+
+{\textbf{PROMAX Electronica}}
+\hfill
+\DatestampYM{2019}{02} --
+\DatestampYM{2019}{06} 
+
+\tab Firmware engineer (R+I+D)
+%\tab Ingeniero de Firmware (R+I+D).
+
+\tab Making a FM decoder in C++ to analyze measurements in real time. 
+%\tab Decodificador de señales FM em C++ para analizar medidas en tiempo real. 
+
+\tab I did the final bachelor's thesis with them. 
+%\tab Realicé el proyecto de fin de grado de universidad con ellos.
+
+\tab The result decoder, had the measurements like the competency but with a lower cost.
+%\tab El resultado final era muy parecido al de la competencia, con un menor coste.
+
+\tab Cross-compile, Embedded systems, RTOS, Unit testing. 
+%\tab Cross-compile, Sistemas Embebidos, Aplicación a tiempo real, Unit testing. 
+
+\Gap
+
+
+{\textbf{RearSim}}, (startup)
+\hfill
+\DatestampYM{2017}{09} --
+\DatestampYM{2019}{07} 
+
+\tab Computer engineer (R+I+D), backend, frontend, firmware and electronics. 
+%\tab Ingeniero informático (R+I+D), backend, frontend, firmware y electrónica. 
+
+\tab Programing the movement of a physical motorcycle simulator. 
+%\tab Programar los movimientos de un simulador de motocicletas físico. 
+
+\tab Develop a C\# software with threads to control the simulator in real time.
+%\tab Desarrollar un software con C\# con distintos threads (productor/consumidor).
+
+\tab Control the simulador in real time with maximum security.
+%\tab Controlar el simulador en tiempo real con la máxima seguridad.
+
+\tab Improving x5 the motorcycle reaction time. 
+%\tab Mejoré x5 la reacción de los motores físicos. 
+
+\tab Calculate new formulas considering the real Servos, PID...
+%\tab Calculé nuevas fórmulas para el movimiento considerando los servos reales (PID).
+
+%\tab Cambié la forma de recibir los paquetes adquiridos con UDP, haciendolo más eficiente.
+
+\tab UDP \& TCP sockets, .dlls, Arduino, PLC, drivers, git... 
+
+
+
+\Gap
+
+% Improving x5 the physical motorcycle reaction time.
+%Improve x1.25 times, one printer motor, necessary to stack the pages with the new speed.
+%Upgrading x4 the life cycle of another motor, rethinking his movement mode.
+%Changing the data acquisition from getting it in the memory  to receiving it with UDP sockets.
+
+
+\Gap
+
+
+%%%%%%%%%%%%%%%
+%% LANGUAGES %%
+%%%%%%%%%%%%%%%
+
+%\Section
+%{LANGUAGES}
+%{IDIOMAS}
+%{PDF:Education}
+%\Entry
+
+%Native catalan and native spanish. English Advanced. 
+
+
+%\Gap
+
+%%%%%%%%%%%%%%%
+%% HABILIDAD %%
+%%%%%%%%%%%%%%%
+\Gap
+
+\hfill
+
+
+%%%%%%%%%%%%%%%
+%% PROJECTS %%
+%%%%%%%%%%%%%%%
+
+\Section
+{PROJECTS}
+{PROYECTOS}
+{PDF:PROJECTS}
+
+\Entry
+
+
+
+{\textbf{Autonomous bot}}
+\hfill
+\DatestampYM{2022}{00} --
+\DatestampY{Actual} 
+
+\tab Develop a bot to play an online game autonumous in C++. 
+%\tab Desenvolupar un bot C++ donde interacione en un juego online de forma autónoma. 
+
+\tab Memory scanning, threading, TCP/IP packets. 
+
+\Gap
+
+
+%{\textbf{Web scraping \& estadísticas}}
+{\textbf{Web scraping \& statistics}}
+\hfill
+\DatestampYM{2018}{00} --
+\DatestampY{Actual} 
+
+\tab  An airport management program with heuristics, in C++.
+%\tab  Extraer con python información desde distintas webs y tratar la información obtenida.
+
+\Gap
+
+%{\textbf{Proyecto de Inteligencia Artifical}}
+{\textbf{IA project}}
+\hfill
+\DatestampYM{2016}{00}
+
+\tab  An airport management program with heuristics, in C++.
+%\tab  Programar en C++ un programa sobre manejo de aeropuertos con heurísticas.
+
+
+\Gap
+
+%{\textbf{Voluntario de profesorado de programación (CodeClub)}}
+{\textbf{Teaching programming to kids (CodeClub)}, Volunteer}
+\hfill
+\DatestampYM{2016}{02} --
+\DatestampYM{2016}{06} 
+
+\Gap
+
+%{\textbf{Varios pequeños proyectos con arduino}}
+{\textbf{Various little Arduino projects}}
+
+
+\hfill
+
+
+\Gap
+\Gap
+
+%%%%%%%%%%%%%%%
+%% SKILLS %%
+%%%%%%%%%%%%%%%
+
+\Section
+{SKILLS}
+{HABILIDADES}
+{PDF:Skills}
+
+\Entry
+
+C++, C, C\#, Python, Go, Linux, Git...
+
+\Gap
+
+%Sistemas embebidos, RTOS, Problem solving.
+Embedded systems, RTOS, Problem solving.
+
+\Gap
+
+%Debbuging, Paralelismo y multi-threading, Web scraping.
+Debbuging, Paralelism, Multi-threading, Web scraping.
+
+\Gap
+
+%Hacking ético, Memmory scanning.
+Ethical Hacking, Memmory scanning.
+
+\Gap
+
+%Agile Cascade, Agile scrum, trabajo bajo presión.
+Agile Cascade, Agile scrum, Work under pressure.
+
+\Gap
+
+TPC/UDP/IP, CAN/BUS.
+
+\Gap
+
+Arduino, Raspberry Pi, PLC.
+
+\Gap
+
+%Catalán y Español nivel nativo. Inglés B2.
+%Native catalan and spanish. English B2. 
+
+\Gap
+\Gap
+\hfill
+
+
+%%%%%%%%%%%%%%%
+%% LANGUAGES %%
+%%%%%%%%%%%%%%%
+
+\Section
+{IDIOMAS}
+{IDIOMAS}
+{PDF:Education}
+\Entry
+
+Catalán y Español nivel nativo.
+
+\Gap
+
+Inglés nivel B2.
+
+\hfill
+
+\Gap
+
+
+%%%%%%%%%%%%%%%
+%% FormaTION %%
+%%%%%%%%%%%%%%%
+
+\Section
+{Courses}
+{Cursos}
+{PDF:Education}
+\Entry
+
+%Varios cursos en Udemy sobre el uso del programa Wireshark.
+Various Udemy courses en about Wireshark program.
+
+\Gap
+
+Various Udemy courses en about Golang programming language.
+%Varios cursos en Udemy sobre el lenguaje de programación Golang.
+
+\Gap
+
+Decision making in autonomous vehicles (40h).
+%Toma de decisiones en vehículos autónomos (40h).
+
+\Gap
+
+Deep Learning (40h).
+
+\Gap
+
+Machine Learning \& python (40h).
+
+\Gap
+
+HTML / CSS / Javascript (40h).
+
+
+\Gap
+
+3D design \& Blender (40h).
+
+
+\Gap
+
+\hfill
+
+%%%%%%%%%%%%%%%
+%% DATOS DE INTERES %%
+%%%%%%%%%%%%%%%
+
+\Section
+{OTHER\ \  DATA}
+%{OTROS DATOS}
+{DATOS }
+{PDF:Ss}
+
+\Entry
+
+Driver's license, own car.
+%Licencia de conducir B. Coche propio.
+
+\Gap
+
+Geographic availability.
+%Disponibilidad geográfica.
+
+\Gap
+
+Successfully completed the Lex Fridman challenge.
+%Logrado con éxito el reto Lex Fridman.
+
+\Gap
+
+A curious man.
+%Un hombre curioso.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% THIS IS A SECTION WITH USAGE NOTES %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{Body}
+
+%%%%%%%%%%%
+% CV NOTE %
+%%%%%%%%%%%
+
+
+\end{document}
