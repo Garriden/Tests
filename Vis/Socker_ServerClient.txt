@@ -1,0 +1,9 @@
+Codifique en C++ (sin usar llamadas al API de Windows) una aplicación cliente-servidor, para la siguiente funcionalidad:
+V- Ambas aplicaciones son aplicaciones de consola Windows
+V- El servidor asigna un nombre a cada cliente cuando se conectan
+ - El cliente envía cada segundo peticiones de inserción de un Usuario con los datos: Id y Name. El identificador es un valor aleatorio entre 1 y 248 y que no se repite en cada ejecución. El cliente muestra por consola el usuario enviado, el tiempo que ha tardado en recibir la respuesta y la respuesta que le ha dado el servidor.
+ - El servidor tiene que almacenar en RAM todos los usuarios que le envíen todos los clientes.
+ - El servidor tiene que rechazar un usuario si ya tiene almacenado otro con el mismo identificador.
+ - El servidor devuelve un valor que indica si ha realizado o no la inserción.
+ - La ejecución del cliente termina cuando no tiene más identificadores libres.
+ - La ejecución del servidor termina cuando hace más de 1 minuto que ningún cliente le ha realizado ninguna petición. Antes de finalizar escribe en un archivo de texto la lista de usuarios recibidos con el identificador del cliente que lo ha insertado.
