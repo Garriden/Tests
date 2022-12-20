@@ -1,13 +1,23 @@
 /*
-Codifique en C++ (sin usar llamadas al API de Windows) una aplicación cliente-servidor, para la siguiente funcionalidad:
+Codifique en C++ (sin usar llamadas al API de Windows) una aplicación cliente-servidor,
+    para la siguiente funcionalidad:
 V- Ambas aplicaciones son aplicaciones de consola Windows
 V- El servidor asigna un nombre a cada cliente cuando se conectan
- - El cliente envía cada segundo peticiones de inserción de un Usuario con los datos: Id y Name. El identificador es un valor aleatorio entre 1 y 248 y que no se repite en cada ejecución. El cliente muestra por consola el usuario enviado, el tiempo que ha tardado en recibir la respuesta y la respuesta que le ha dado el servidor.
- - El servidor tiene que almacenar en RAM todos los usuarios que le envíen todos los clientes.
- - El servidor tiene que rechazar un usuario si ya tiene almacenado otro con el mismo identificador.
- - El servidor devuelve un valor que indica si ha realizado o no la inserción.
- - La ejecución del cliente termina cuando no tiene más identificadores libres.
- - La ejecución del servidor termina cuando hace más de 1 minuto que ningún cliente le ha realizado ninguna petición. Antes de finalizar escribe en un archivo de texto la lista de usuarios recibidos con el identificador del cliente que lo ha insertado.
+v- El cliente envía cada segundo peticiones de inserción de un Usuario con los datos: 
+    Id y Name. El identificador es un valor aleatorio entre 1 y 248 y que no se 
+    repite en cada ejecución. El cliente muestra por consola el usuario enviado, 
+    el tiempo que ha tardado en recibir la respuesta y la respuesta que le ha 
+    dado el servidor.
+V- El servidor tiene que almacenar en RAM todos los usuarios que le envíen 
+    todos los clientes. (map)
+V- El servidor tiene que rechazar un usuario si ya tiene almacenado otro 
+    con el mismo identificador. (el map.insert ya se encarga de eso)
+v- El servidor devuelve un valor que indica si ha realizado o no la inserción.
+V- La ejecución del cliente termina cuando no tiene más identificadores libres.
+ - La ejecución del servidor termina cuando hace más de 1 minuto que ningún 
+    cliente le ha realizado ninguna petición. Antes de finalizar escribe en 
+    un archivo de texto la lista de usuarios recibidos con el identificador 
+    del cliente que lo ha insertado.
 
 Se valorarán los siguientes aspectos:
  - Claridad del código
@@ -22,6 +32,11 @@ Se valorarán los siguientes aspectos:
 #include <stdio.h>
 #include <ctime>
 #include <afunix.h>
+#include <vector>
+#include <algorithm>
+#include <string>
+
+#include "Names.h"
 
 using namespace std;
 
@@ -30,8 +45,27 @@ using namespace std;
 #define DEFAULT_PORT "27015"
 #define DEFAULT_BUFLEN 512
 
+struct User {
+    int id;
+    string name;
+};
 
-int main() {
+vector<User> NonRepeteableRandom()
+{
+	vector<User> v(MAX_USERS_NUMBER);
+
+	for(int ii = 0; ii < MAX_USERS_NUMBER; ii++) {
+		v[ii].id = ii;
+		v[ii].name = Names[ii];
+	}
+
+	random_shuffle( v.begin(), v.end() );
+
+    return v;
+}
+
+int main() 
+{
 	int iResult;
 
 	// Initialize Winsock
@@ -91,12 +125,21 @@ int main() {
 	const char* sendbuf = "this is a test";
 	char recvbuf[DEFAULT_BUFLEN];
 
-	while(1) {
-		std::string s;
-		std::cin >> s;
+	vector<User> randomVector = NonRepeteableRandom();
+	int randomVectorPosition = 0;
+
+
+	while(randomVectorPosition < MAX_USERS_NUMBER) {
+		//std::string s;
+		//std::cin >> s;
+
+		User user = randomVector[randomVectorPosition++];
+		string message = std::to_string(user.id) + "," + user.name;
+
+		clock_t begin = clock();
 
 		// Send the string
-		iResult = send(ConnectSocket, s.c_str(), (int)strlen(s.c_str()), 0);
+		iResult = send(ConnectSocket, message.c_str(), (int)strlen(message.c_str()), 0);
 		if (iResult == SOCKET_ERROR) {
 			printf("send failed: %d\n", WSAGetLastError());
 			closesocket(ConnectSocket);
@@ -104,18 +147,35 @@ int main() {
 			return 1;
 		}
 
-		printf("Bytes Sent: %ld\n", iResult);
+		std::cout << "Message sent: " << message << std::endl;
+
+		//printf("Bytes Sent: %ld, message: %ld\n", iResult, s);
+/*
+		iResult = 0;
+		while(iResult <= 0) {
+			iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
+			if (iResult > 0) {
+				printf("Bytes received: %d\n", iResult);
+			}
+		}
+		clock_t end = clock();
+		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+		std::cout << "Elapsed time: " << elapsed_secs << std::endl;
+*/
+		Sleep(1000);
 	}
+
+	std::cout << "Shutting the socket down!" << std::endl;
 
 	// shutdown the connection for sending since no more data will be sent
 	// the client can still use the ConnectSocket for receiving data
-	//iResult = shutdown(ConnectSocket, SD_SEND);
-	//if (iResult == SOCKET_ERROR) { // Error handling
-	//	printf("shutdown failed: %d\n", WSAGetLastError());
-	//	closesocket(ConnectSocket);
-	//	WSACleanup();
-	//	return 1;
-	//}
+	iResult = shutdown(ConnectSocket, SD_SEND);
+	if (iResult == SOCKET_ERROR) { // Error handling
+		printf("shutdown failed: %d\n", WSAGetLastError());
+		closesocket(ConnectSocket);
+		WSACleanup();
+		return 1;
+	}
 
 	// Receive data until the server closes the connection
 /*

@@ -1,12 +1,16 @@
 #include <iostream>
 #include <winsock2.h>
-using namespace std;
+#include <map>
+#include <string>
+
 
 #pragma comment(lib,"ws2_32.lib") // Winsock Library
 #pragma warning(disable:4996) 
 
 #define BUFLEN 512
 #define PORT 27015
+
+std::map<int, std::string> User;
 
 int main()
 {
@@ -53,11 +57,37 @@ int main()
             printf("recvfrom() failed with error code: %d", WSAGetLastError());
             exit(0);
         }
+        
+        // Decompress the message
+        std::string s = message;
+        int pos = s.find(",");
+        int id = std::stoi(s.substr(0, pos));
+        std::string name = s.substr(pos+1, s.size());
+        
 
-        // print details of the client/peer and the data received
-        printf("Received packet from %s:%d\n", inet_ntoa(client.sin_addr), ntohs(client.sin_port));
-        printf("Data: %s\n", message);
+        // Print the data received
+        std::cout << "Received packet from client num:: " << ntohs(client.sin_port) << std::endl;
+        std::cout << "Message received: " << id << " / " << name << std::endl;
 
+        // Map structure dones't allow duplicates. It does not insert if it already exists.
+         // But, if we want to check if the user.id it is already stored:
+         // std::map::contains(id) in C++ 20
+        if (User.count(id) != 0) { // It is repeated
+            std::cout << "Repeated user!" << std::endl;
+        }
+
+        // Save in RAM
+        User.insert(std::pair<int, std::string>(id, name));
+
+ 
+
+        /*
+        std::map<int, std::string>::iterator itr;
+        for (itr = User.begin(); itr != User.end(); ++itr) {
+            std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+        }
+        std::cout << std::endl;
+        */
     }
 
     closesocket(server_socket);
