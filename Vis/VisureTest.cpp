@@ -14,7 +14,7 @@ V- El servidor tiene que rechazar un usuario si ya tiene almacenado otro
     con el mismo identificador. (el map.insert ya se encarga de eso)
 v- El servidor devuelve un valor que indica si ha realizado o no la inserción.
 V- La ejecución del cliente termina cuando no tiene más identificadores libres.
- - La ejecución del servidor termina cuando hace más de 1 minuto que ningún 
+V- La ejecución del servidor termina cuando hace más de 1 minuto que ningún 
     cliente le ha realizado ninguna petición. Antes de finalizar escribe en 
     un archivo de texto la lista de usuarios recibidos con el identificador 
     del cliente que lo ha insertado.
@@ -44,6 +44,7 @@ using namespace std;
 
 #define DEFAULT_PORT "27015"
 #define DEFAULT_BUFLEN 512
+#define SECOND 1000
 
 struct User {
     int id;
@@ -150,18 +151,7 @@ int main()
 		std::cout << "Message sent: " << message << std::endl;
 
 		//printf("Bytes Sent: %ld, message: %ld\n", iResult, s);
-/*
-		iResult = 0;
-		while(iResult <= 0) {
-			iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
-			if (iResult > 0) {
-				printf("Bytes received: %d\n", iResult);
-			}
-		}
-		clock_t end = clock();
-		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-		std::cout << "Elapsed time: " << elapsed_secs << std::endl;
-*/
+
 		Sleep(1000);
 	}
 

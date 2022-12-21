@@ -1,16 +1,18 @@
 #include <iostream>
+#include <fstream>
 #include <winsock2.h>
 #include <map>
 #include <string>
-
 
 #pragma comment(lib,"ws2_32.lib") // Winsock Library
 #pragma warning(disable:4996) 
 
 #define BUFLEN 512
 #define PORT 27015
+#define SECOND 1000
 
-std::map<int, std::string> User;
+std::map<int, std::string> User; // map which stores the Users
+std::map<int, int> UserSentFromClient; // map which works to know whose client sent the user
 
 int main()
 {
@@ -49,12 +51,35 @@ int main()
         fflush(stdout);
         char message[BUFLEN] = {};
 
-        // try to receive some data, this is a blocking call
+        // Set the timer to 60 seconds(1min) when not receiving a message
+        DWORD timeout = 60 * SECOND;
+        setsockopt(server_socket, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeout, sizeof(timeout));
+
+        // Try to receive some data, this is a blocking call
         int message_len;
         int slen = sizeof(sockaddr_in);
         message_len = recvfrom(server_socket, message, BUFLEN, 0, (sockaddr*)&client, &slen);
-        if (message_len == SOCKET_ERROR) { // Error handling
+        if(message_len == SOCKET_ERROR) { // Error handling
             printf("recvfrom() failed with error code: %d", WSAGetLastError());
+
+            // After 1 min after not receiving a message, save in into a file
+            if(WSAGetLastError() == WSAETIMEDOUT) {
+                std::ofstream file;
+                file.open("Users.txt");
+
+                // Print the map
+                std::map<int, std::string>::iterator itr;
+                std::map<int, int>::iterator itrClient;
+                for (itr = User.begin(), itrClient = UserSentFromClient.begin();
+                     itr != User.end(); 
+                     ++itr, ++itrClient) 
+                {
+                    std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
+                    file << itr->first << "," << itr->second << "," << itrClient->second << std::endl;
+                }
+                std::cout << std::endl;
+
+            } 
             exit(0);
         }
         
@@ -78,16 +103,7 @@ int main()
 
         // Save in RAM
         User.insert(std::pair<int, std::string>(id, name));
-
- 
-
-        /*
-        std::map<int, std::string>::iterator itr;
-        for (itr = User.begin(); itr != User.end(); ++itr) {
-            std::cout << '\t' << itr->first << '\t' << itr->second << std::endl;
-        }
-        std::cout << std::endl;
-        */
+        UserSentFromClient.insert(std::pair<int,int>(id, ntohs(client.sin_port)));
     }
 
     closesocket(server_socket);
