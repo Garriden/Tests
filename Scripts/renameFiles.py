@@ -22,8 +22,11 @@ def main():
     
     for cout, file in enumerate(os.listdir(directory)):
         #print(file)
+        extension = ''
+        
         newFile = file.split(".")
-        extension = newFile[1]
+        if(len(newFile)>1):
+            extension = newFile[1]
         
         newFileWithoutGroup = newFile[0].split(group + " ")
         #print(newFileWithoutGroup)
