@@ -1,8 +1,13 @@
 #include <iostream>
 #include <vector>
+#include <map>
+#include <unordered_map>
 #include <algorithm>
 
 /*
+g++ -o b .\maxStringsCanBeBuild.cpp
+
+
  K into combinations
  1st try: more brute force approach.
   - I asume that all characters are appearing in order from a.
@@ -19,9 +24,42 @@
     - DO the brute force approach on step 1.
 */
 
-using namespace std;
-
 std::vector<std::string> _combinations;
+std::vector<std::pair<char,int> > _charFrequencyVector;
+
+constexpr bool ChooseBigger(const std::pair<int,int>& a, const std::pair<int,int>& b) {
+    return a.second != b.second ? a.second > b.second : a.first < b.first;
+}
+
+void GetOrderedCharFrequency(std::vector<std::string> &S) {
+
+    std::unordered_map<char, int> charAppearsOnStrings;
+    std::unordered_map<char, int> charAppearsOnStringAux;
+
+    // Count character frequencies
+    for(std::string s : S) {
+        for(char c : s) {
+
+            if(charAppearsOnStringAux[c] == 0) {
+                charAppearsOnStrings[c]++;
+                charAppearsOnStringAux[c]++;
+            }
+            
+        }
+        charAppearsOnStringAux.clear();
+    }
+
+    for(auto keyValue : charAppearsOnStrings) {
+        //std::cout << keyValue.first << " / " << keyValue.second << std::endl;
+        _charFrequencyVector.push_back({keyValue.first, keyValue.second});
+    }
+
+    std::sort(_charFrequencyVector.begin(), _charFrequencyVector.end(), ChooseBigger);
+
+    //for(auto elem : _charFrequencyVector) {
+    //    std::cout << elem.first << " / " << elem.second << std::endl;
+    //}
+}
 
 void Combinations(int k, int n, std::vector<bool>& visited, int it) {
     if(k == 0) {
@@ -82,11 +120,13 @@ int main()
     std::vector<bool> visited(n, false);
     std::vector<std::string> v1 = {"abc", "abb", "cb", "a", "bbb"};
 
+    GetOrderedCharFrequency(v1);
+
     // O(k*n)
     Combinations(k, n, visited, 0);
 
     // O(k*n*S.size())
-    std::cout << Solve(v1) << std::endl;
+    std::cout << Solve(v1) << std::endl; // 3
 
 
 
@@ -96,7 +136,7 @@ int main()
     std::vector<std::string> v2 = {"adf", "jjbh", "jcgj", "ejjj", "adf"};
 
     Combinations(k, n, visited2, 0);
-    std::cout << Solve(v2) << std::endl;
+    std::cout << Solve(v2) << std::endl; // 2
 
 
 
@@ -106,7 +146,7 @@ int main()
     std::vector<std::string> v3 = {"abcd", "efgh"};
 
     Combinations(k, n, visited3, 0);
-    std::cout << Solve(v3) << std::endl;
+    std::cout << Solve(v3) << std::endl; // 0
 
 
     k = 4;
@@ -115,5 +155,5 @@ int main()
     std::vector<std::string> v4 = {"bc", "edf", "fde", "dge", "abcd"};
 
     Combinations(k, n, visited4, 0);
-    std::cout << Solve(v4) << std::endl;
+    std::cout << Solve(v4) << std::endl; // 3
 }
